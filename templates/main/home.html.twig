@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+Welcome {{ user | striptags }}
+{% endblock %}
+
+{% block title %}
+{{ parent() }} | {{ user | striptags }}
+{% endblock %}
+
