@@ -23,14 +23,14 @@
 <div class="container">
 
     <header>
-        <div class="flex-div">
+        <h1 class="flex-div">
 
             <a href="{{ path('main_home') }}">
                 <img src="{{ asset('images/logo.svg') }}">
             </a>
             <div>Bucket-List</div>
 
-        </div>
+        </h1>
         {% include 'views/nav/nav.html.twig' %}
     </header>
     <h1>Bienvenue sur le site BucketList</h1>
@@ -38,7 +38,7 @@
 
         {% block body %}{% endblock %}
     </main>
-    <footer>
+    <footer class="justify-center">
         &copy;Bucket-list {{ 'now' | date('Y') }}
         {% include 'views/nav/nav.html.twig' %}
     </footer>
