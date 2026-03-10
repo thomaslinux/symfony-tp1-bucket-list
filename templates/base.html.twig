@@ -29,7 +29,9 @@
                 <img src="{{ asset('images/logo.svg') }}">
             </a>
             <div>Bucket-List</div>
+
         </div>
+        {% include 'views/nav/nav.html.twig' %}
     </header>
     <h1>Bienvenue sur le site BucketList</h1>
     <main>
@@ -37,6 +39,7 @@
         {% block body %}{% endblock %}
     </main>
     <footer>
+        &copy;Bucket-list {{ 'now' | date('Y') }}
         {% include 'views/nav/nav.html.twig' %}
     </footer>
 </div>
