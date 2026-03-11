@@ -17,14 +17,14 @@ class Wish
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 1024, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(length: 64)]
     private ?string $author = null;
 
     #[ORM\Column(options: ["default" => 0])]
-    private ?bool $isPublished = null;
+    private ?bool $isPublished = false;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTime $dateCreated = null;
