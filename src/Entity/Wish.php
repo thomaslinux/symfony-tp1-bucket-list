@@ -23,7 +23,7 @@ class Wish
     #[ORM\Column(length: 64)]
     private ?string $author = null;
 
-    #[ORM\Column(options: ["default" => 0])]
+    #[ORM\Column]
     private ?bool $isPublished = false;
 
     #[ORM\Column(nullable: true)]
