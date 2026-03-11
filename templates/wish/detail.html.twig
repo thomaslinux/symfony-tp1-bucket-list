@@ -4,7 +4,11 @@
 {% endblock %}
 
 {% block body %}
-    <h2>Truc à faire numéro {{ wishId }}</h2>
+    <h2>Truc à faire numéro {{ wish.id }}</h2>
+    <h3>{{ wish.title }}</h3>
+
+    <div class="author">author : {{ wish.author }}</div>
+    
 
 {% endblock %}
 
