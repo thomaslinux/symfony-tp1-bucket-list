@@ -21,11 +21,12 @@ final class WishController extends AbstractController
     }
 
     #[Route('/{id}', name: 'detail', requirements: ['id' => '[0-9]+'])]
-    public function detail(Wish $id, WishRepository $wishRepository): Response
+    public function detail(int $id, WishRepository $wishRepository): Response
     {
+        $wish = $wishRepository->find($id);
 
         return $this->render('wish/detail.html.twig', [
-            'wish' => $id
+            'wish' => $wish
         ]);
     }
 }
