@@ -4,11 +4,14 @@
 {% endblock %}
 
 {% block body %}
-    <h2>Truc à faire numéro {{ wish.id }}</h2>
-    <h3>{{ wish.title }}</h3>
+    <article>
 
-    <div class="author">author : {{ wish.author }}</div>
-    
+        <h3>{{ wish.title }}</h3>
+        <em>Created by {{ wish.author }} on {{ wish.dateCreated | date ('Y-m-d') }}</em>
+        <br>
+        <p class="description">{{ wish.description }}</p>
+    </article>
+
 
 {% endblock %}
 
