@@ -4,9 +4,17 @@
 
     <h1>Bienvenue sur le site BucketList</h1>
     <h2>liste de trucs à faire</h2>
-    {% for wish in wishes %}
-        <a href="{{ path('wish_detail', {'id': wish.id}) }}">{{ wish.title }}</a>
-    {% endfor %}
+    <section>
+
+        {% for wish in wishes %}
+            <a href="{{ path('wish_detail', {'id': wish.id}) }}">
+                <article>
+
+                    {{ wish.title }}
+                </article>
+            </a>
+        {% endfor %}
+    </section>
 {% endblock %}
 
 {% block title %}
