@@ -9,10 +9,11 @@
         {% for wish in wishes %}
             <a href="{{ path('wish_detail', {'id': wish.id}) }}">
                 <article>
-
                     {{ wish.title }}
                 </article>
             </a>
+        {% else %}
+            <p>Pas de souhaits !</p>
         {% endfor %}
     </section>
 {% endblock %}
