@@ -1,0 +1,10 @@
+{% form_theme wishForm 'views/form/form-theme.html.twig' %}
+
+<h2>{% block wishTitle %}{% endblock %}</h2>
+
+{{ form_start(wishForm) }}
+{{ form_widget(wishForm) }}
+<button>
+    {% block buttonLabel %}{% endblock %}
+</button>
+{{ form_end(wishForm) }}

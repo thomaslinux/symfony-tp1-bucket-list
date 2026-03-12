@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Wish;
+use App\Form\WishType;
 use App\Repository\WishRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -22,7 +26,17 @@ final class WishController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'detail', requirements: ['id' => '[0-9]+'])]
+    #[Route("/create", 'create', methods: ['POST', 'GET'])]
+    public function create(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $wish = new wish();
+        $wishForm = $this->createForm(WishType::class, $wish);
+        return $this->render('wish/create.html.twig', [
+            'wishForm' => $wishForm->createView()
+        ]);
+    }
+
+    #[Route('/detail/{id}', name: 'detail', requirements: ['id' => '[0-9]+'])]
     public function detail(Wish $id, WishRepository $wishRepository): Response
     {
 //        $wish = $wishRepository->find($id);
