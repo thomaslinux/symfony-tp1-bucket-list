@@ -7,6 +7,7 @@
         <em>Created by {{ wish.author }} on {{ wish.dateCreated | date ('Y-m-d') }}</em>
         <br>
         <p class="description">{{ wish.description }}</p>
+        <a class="turboBouton link-button" href="{{ path('wish_update', {'id': wish.id}) }}">Update</a>
     </article>
 
 

@@ -48,6 +48,33 @@ final class WishController extends AbstractController
         ]);
     }
 
+
+    #[Route("/update/{id}", 'update', methods: ['POST', 'GET'])]
+    public function update(
+        int                    $id,
+        WishRepository         $wishRepository,
+        Request                $request,
+        EntityManagerInterface $entityManager
+    )
+    {
+        $wish = $wishRepository->find($id);
+        $wishForm = $this->createForm(WishType::class, $wish);
+        $wishForm->handleRequest($request);
+
+        if ($wishForm->isSubmitted() && $wishForm->isValid()) {
+            $entityManager->persist($wish);;
+            $entityManager->flush();
+            $this->addFlash('success', 'Wish updated !');
+
+            return $this->redirectToRoute('wish_detail', ['id' => $wish->getId()]);
+        }
+
+        return $this->render('wish/update.html.twig', [
+            'wishForm' => $wishForm
+        ]);
+
+    }
+
     #[Route('/detail/{id}', name: 'detail', requirements: ['id' => '[0-9]+'])]
     public function detail(Wish $id, WishRepository $wishRepository): Response
     {

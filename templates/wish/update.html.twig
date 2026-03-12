@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% embed 'views/form/wish-form.html.twig' %}
+        {% block wishTitle %} Update a wish ! {% endblock %}
+        {% block buttonLabel %} Update ! {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block title %}
+    Create a Wish !
+{% endblock %}
