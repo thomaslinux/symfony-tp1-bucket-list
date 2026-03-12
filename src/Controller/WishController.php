@@ -31,6 +31,17 @@ final class WishController extends AbstractController
     {
         $wish = new wish();
         $wishForm = $this->createForm(WishType::class, $wish);
+
+        $wishForm->handleRequest($request);
+
+        if ($wishForm->isSubmitted() && $wishForm->isValid()) {
+            $entityManager->persist($wish);
+            $entityManager->flush();
+
+            $this->addFlash('sucess', 'Wish' . $wish->getTitle() . 'added !');
+            return $this->redirectToRoute('wish_detail', ['id' => $wish->getId()]);
+        }
+
         return $this->render('wish/create.html.twig', [
             'wishForm' => $wishForm->createView()
         ]);
