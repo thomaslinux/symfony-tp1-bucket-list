@@ -75,6 +75,24 @@ final class WishController extends AbstractController
 
     }
 
+    #[Route("/delete/{id}", 'delete', methods: ['POST', 'GET'])]
+    public function delete(
+        int                    $id,
+        WishRepository         $wishRepository,
+        Request                $request,
+        EntityManagerInterface $entityManager
+
+    )
+    {
+        $wish = $wishRepository->find($id);
+        $entityManager->remove($wish);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Wish deleted !');
+        return $this->redirectToRoute('wish_list');
+
+    }
+
     #[Route('/detail/{id}', name: 'detail', requirements: ['id' => '[0-9]+'])]
     public function detail(Wish $id, WishRepository $wishRepository): Response
     {
