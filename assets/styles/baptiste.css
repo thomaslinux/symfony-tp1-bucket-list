@@ -1,0 +1,18 @@
+/*.series-list {*/
+/*    all: unset;*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*}*/
+
+.turboBouton {
+    background-color: #3b82f6;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border: 1px solid #1d4ed8;
+    border-radius: 0.25rem;
+}
+
+.turboBouton:hover {
+    background-color: #1d4ed8;
+}

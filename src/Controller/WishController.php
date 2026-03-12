@@ -38,7 +38,8 @@ final class WishController extends AbstractController
             $entityManager->persist($wish);
             $entityManager->flush();
 
-            $this->addFlash('sucess', 'Wish' . $wish->getTitle() . 'added !');
+//            $this->addFlash('sucess', 'Wish' . $wish->getTitle() . 'added !');
+            $this->addFlash('success', 'Idea successfully added!');
             return $this->redirectToRoute('wish_detail', ['id' => $wish->getId()]);
         }
 

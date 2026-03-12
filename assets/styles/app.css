@@ -32,6 +32,7 @@ main {
     background-color: lawngreen
 }
 
-.form-error {
+.form-error li {
     color: red;
+    list-style-type: none;
 }
