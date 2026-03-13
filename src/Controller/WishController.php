@@ -29,12 +29,16 @@ final class WishController extends AbstractController
     #[Route("/create", 'create', methods: ['POST', 'GET'])]
     public function create(EntityManagerInterface $entityManager, Request $request): Response
     {
-        $wish = new wish();
+        $wish = new Wish();
         $wishForm = $this->createForm(WishType::class, $wish);
 
         $wishForm->handleRequest($request);
 
         if ($wishForm->isSubmitted() && $wishForm->isValid()) {
+
+            $wish->setIsPublished(true);
+            $wish->setDateCreated(new \DateTime());
+
             $entityManager->persist($wish);
             $entityManager->flush();
 
