@@ -35,7 +35,7 @@ final class WishController extends AbstractController
         $wishForm->handleRequest($request);
 
         if ($wishForm->isSubmitted() && $wishForm->isValid()) {
-
+            // appel à des services
             $wish->setIsPublished(true);
             $wish->setDateCreated(new \DateTime());
 
