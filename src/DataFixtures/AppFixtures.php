@@ -43,7 +43,6 @@ class AppFixtures extends Fixture //implements DependentFixtureInterface
         for ($i = 0; $i < 50; $i++) {
             $wish = new Wish();
             $wish->setTitle($faker->text(15))
-                ->setAuthor($faker->userName())
                 ->setDateCreated($faker->dateTimeBetween('-6 year'))
                 ->setDescription($faker->sentence())
                 ->setCategory($faker->randomElement($categories))

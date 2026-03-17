@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use function PHPUnit\Framework\throwException;
 
 #[Route('/wishes', name: 'wish_')]
 final class WishController extends AbstractController
@@ -21,7 +22,7 @@ final class WishController extends AbstractController
     {
         //        $wishes = $wishRepository->findBy(['isPublished' => true], ['dateCreated' => 'DESC']);
         $wishes = $wishRepository->findWishesWithCategory();
-        
+
         return $this->render('wish/list.html.twig', [
             'wishes' => $wishes
         ]);
@@ -34,8 +35,8 @@ final class WishController extends AbstractController
         $wishForm = $this->createForm(WishType::class, $wish);
 
         $wishForm->handleRequest($request);
-
         if ($wishForm->isSubmitted() && $wishForm->isValid()) {
+            $wish->setAuthor($this->getUser());
             // appel à des services
             $wish->setIsPublished(true);
             $wish->setDateCreated(new \DateTime());
@@ -63,6 +64,9 @@ final class WishController extends AbstractController
     )
     {
         $wish = $wishRepository->find($id);
+        if ($this->getUser() !== $wish->getAuthor()) {
+            throw $this->createAccessDeniedException('Access denied');
+        }
         $wishForm = $this->createForm(WishType::class, $wish);
         $wishForm->handleRequest($request);
 
@@ -90,6 +94,11 @@ final class WishController extends AbstractController
     )
     {
         $wish = $wishRepository->find($id);
+
+        if ($this->getUser() !== $wish->getAuthor()) {
+            throw $this->createAccessDeniedException('Access denied');
+        }
+
         $entityManager->remove($wish);
         $entityManager->flush();
 
