@@ -4,6 +4,7 @@
     <article>
 
         <h3>{{ wish.title }}</h3>
+        <p>Category : {{ wish.category.name }}</p>
         <em>Created by {{ wish.author }} on {{ wish.dateCreated | date ('Y-m-d') }}</em>
         <br>
         <p class="description">{{ wish.description }}</p>

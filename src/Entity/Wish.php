@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: WishRepository::class)]
 class Wish
 {
@@ -15,27 +16,30 @@ class Wish
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank()]
+    #[ORM\Column(length: 250)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 250, maxMessage: "Too big !")]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 64)]
-    #[Assert\NotBlank()]
+    #[ORM\Column(length: 50)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50, maxMessage: "Too big !")]
     private ?string $author = null;
 
     #[ORM\Column]
     private ?bool $isPublished = false;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?\DateTime $dateCreated = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[ORM\Column(nullable: true)]
     private ?\DateTime $dateUpdated = null;
 
     #[ORM\ManyToOne(inversedBy: 'wishes')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
     public function getId(): ?int
@@ -48,7 +52,7 @@ class Wish
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(?string $title): static
     {
         $this->title = $title;
 
@@ -72,7 +76,7 @@ class Wish
         return $this->author;
     }
 
-    public function setAuthor(string $author): static
+    public function setAuthor(?string $author): static
     {
         $this->author = $author;
 
@@ -96,7 +100,7 @@ class Wish
         return $this->dateCreated;
     }
 
-    public function setDateCreated(?\DateTime $dateCreated): static
+    public function setDateCreated(\DateTime $dateCreated): static
     {
         $this->dateCreated = $dateCreated;
 
@@ -115,6 +119,19 @@ class Wish
         return $this;
     }
 
+    #[ORM\PrePersist]
+    public function prePersist()
+    {
+        $this->setDateCreated(new \DateTime());
+        $this->setIsPublished(true);
+    }
+
+    #[ORM\PreUpdate]
+    public function preUpdate()
+    {
+        $this->setDateUpdated(new \DateTime());
+    }
+
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -126,5 +143,4 @@ class Wish
 
         return $this;
     }
-    
 }
