@@ -5,11 +5,15 @@
 
         <h3>{{ wish.title }}</h3>
         <p>Category : {{ wish.category.name }}</p>
-        <em>Created by {{ wish.author }} on {{ wish.dateCreated | date ('Y-m-d') }}</em>
+        <em>Created by {{ wish.author.username }} on {{ wish.dateCreated | date ('Y-m-d') }}</em>
         <br>
         <p class="description">{{ wish.description }}</p>
-        <a class="turboBouton link-button" href="{{ path('wish_update', {'id': wish.id}) }}">Update</a>
-        <a class="turboBouton redBtn link-button" href="{{ path('wish_delete', {'id': wish.id}) }}">Delete</a>
+        {% if app.user %}
+            {% if app.user == wish.author %}
+                <a class="turboBouton link-button" href="{{ path('wish_update', {'id': wish.id}) }}">Update</a>
+                <a class="turboBouton redBtn link-button" href="{{ path('wish_delete', {'id': wish.id}) }}">Delete</a>
+            {% endif %}
+        {% endif %}
     </article>
 
 
