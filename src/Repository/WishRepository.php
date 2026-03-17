@@ -17,6 +17,22 @@ class WishRepository extends ServiceEntityRepository
     }
 
 
+    public function findWishesByCategory($id = 1)
+    {
+        $qb = $this->createQueryBuilder('w');
+        $qb
+            ->join('w.category', 'c')
+            ->addSelect('c')
+            ->andWhere('w.category = :categoryId')
+            ->setParameter('categoryId', $id)
+            ->andWhere('w.isPublished = :ispublished')
+            ->setParameter('ispublished', true)
+            ->addOrderBy('w.dateCreated', 'DESC');
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
     public function findWishesWithCategory()
     {
 

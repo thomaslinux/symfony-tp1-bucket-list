@@ -1,0 +1,8 @@
+<nav>
+    <ul>
+        <li><a href="{{ path('wish_list') }}">All categories</a></li>
+        {% for category in categories %}
+            <li><a href="{{ path('wish_list_by_category', {'id': category.id}) }}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>

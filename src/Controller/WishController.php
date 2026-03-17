@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Wish;
 use App\Form\WishType;
+use App\Repository\CategoryRepository;
 use App\Repository\WishRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,13 +19,24 @@ use function PHPUnit\Framework\throwException;
 final class WishController extends AbstractController
 {
     #[Route('', name: 'list')]
-    public function list(WishRepository $wishRepository): Response
+    #[Route('/category/{id}', name: 'list_by_category', requirements: ['id' => '\d+'])]
+    public function list(
+        WishRepository     $wishRepository,
+        CategoryRepository $categoryRepository,
+        int                $id = null
+    ): Response
     {
-        //        $wishes = $wishRepository->findBy(['isPublished' => true], ['dateCreated' => 'DESC']);
-        $wishes = $wishRepository->findWishesWithCategory();
+        if ($id) {
+            $wishes = $wishRepository->findWishesByCategory($id);
+        } else {
+            $wishes = $wishRepository->findWishesWithCategory();
+        }
+
+        $categories = $categoryRepository->findAll();
 
         return $this->render('wish/list.html.twig', [
-            'wishes' => $wishes
+            'wishes' => $wishes,
+            'categories' => $categories
         ]);
     }
 
