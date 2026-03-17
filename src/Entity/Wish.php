@@ -111,4 +111,5 @@ class Wish
 
         return $this;
     }
+    
 }
