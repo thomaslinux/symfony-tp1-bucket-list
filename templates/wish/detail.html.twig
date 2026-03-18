@@ -12,7 +12,7 @@
             {% if app.user == wish.author %}
                 <a class="turboBouton link-button" href="{{ path('wish_update', {'id': wish.id}) }}">Update</a>
             {% endif %}
-            {% if app.user == wish.author and is_granted('ROLE_ADMIN') %}
+            {% if app.user == wish.author or is_granted('ROLE_ADMIN') %}
                 <a class="turboBouton redBtn link-button" href="{{ path('wish_delete', {'id': wish.id}) }}">Delete</a>
             {% endif %}
         {% endif %}
