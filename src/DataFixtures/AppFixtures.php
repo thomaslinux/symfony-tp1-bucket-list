@@ -3,19 +3,40 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\User;
 use App\Entity\Wish;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture //implements DependentFixtureInterface
 {
+
+    public function __construct(private UserPasswordHasherInterface $userPasswordHasher)
+    {
+    }
+
     public function load(ObjectManager $manager): void
     {
 
         $this->addCategories($manager);
+        $this->addUsers($manager);
         $this->addWishes($manager);
+    }
+
+    public function addUsers(ObjectManager $manager)
+    {
+        $faker = Factory::create('fr_FR');
+        for ($i = 0; $i < 50; $i++) {
+            $user = new User();
+            $user
+                ->setRoles(['ROLE_USER'])
+                ->setEmail($faker->email())
+                ->setUsername($faker->userName())
+                ->setPassword($this->userPasswordHasher->hashPassword($user, '123456'));
+        }
     }
 
     public function addCategories(ObjectManager $manager)
