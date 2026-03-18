@@ -64,6 +64,7 @@ class AppFixtures extends Fixture //implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
         $categories = $manager->getRepository(Category::class)->findAll();
+        $users = $manager->getRepository(User::class)->findAll();
 
         for ($i = 0; $i < 50; $i++) {
             $wish = new Wish();
@@ -71,8 +72,8 @@ class AppFixtures extends Fixture //implements DependentFixtureInterface
                 ->setDateCreated($faker->dateTimeBetween('-6 year'))
                 ->setDescription($faker->sentence())
                 ->setCategory($faker->randomElement($categories))
+                ->setAuthor($faker->randomElement($users))
                 ->setIsPublished($faker->boolean(70));
-
             $manager->persist($wish);
         }
         $manager->flush();
