@@ -108,8 +108,8 @@ final class WishController extends AbstractController
     {
         $wish = $wishRepository->find($id);
 
-        if ($this->getUser() !== $wish->getAuthor()) {
-            throw $this->createAccessDeniedException('Access denied');
+        if ($this->getUser() !== $wish->getAuthor() && !$this->isGranted("ROLE_ADMIN")) {
+            throw $this->createAccessDeniedException('Deletion not allowed');
         }
 
         $entityManager->remove($wish);
