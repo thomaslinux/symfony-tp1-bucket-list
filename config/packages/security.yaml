@@ -42,6 +42,7 @@ security:
     # Note: Only the *first* matching rule is applied
     access_control:
         - { path: ^/wishes/(create|update|delete), roles: ROLE_USER }
+        #        - { path: ^/wishes/(create|update|delete), roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/wishes, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
 
