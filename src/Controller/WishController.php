@@ -78,7 +78,7 @@ final class WishController extends AbstractController
     {
         $wish = $wishRepository->find($id);
         if ($this->getUser() !== $wish->getAuthor()) {
-            throw $this->createAccessDeniedException('Access denied');
+            throw $this->createAccessDeniedException('Not your wish');
         }
         $wishForm = $this->createForm(WishType::class, $wish);
         $wishForm->handleRequest($request);
