@@ -49,11 +49,11 @@ final class WishController extends AbstractController
 
         $wishForm->handleRequest($request);
         if ($wishForm->isSubmitted() && $wishForm->isValid()) {
-            $wish->setAuthor($this->getUser());
             // appel à des services
             $wish->setIsPublished(true);
             $wish->setDateCreated(new \DateTime());
 
+            $wish->setAuthor($this->getUser());
             $entityManager->persist($wish);
             $entityManager->flush();
 
