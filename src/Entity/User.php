@@ -41,6 +41,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Wish::class, mappedBy: 'Author')]
     private Collection $wishes;
 
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
     public function __construct()
     {
         $this->wishes = new ArrayCollection();
@@ -153,6 +156,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $wish->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
 
         return $this;
     }
