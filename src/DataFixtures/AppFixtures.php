@@ -35,8 +35,12 @@ class AppFixtures extends Fixture //implements DependentFixtureInterface
                 ->setRoles(['ROLE_USER'])
                 ->setEmail($faker->email())
                 ->setUsername($faker->userName())
-                ->setPassword($this->userPasswordHasher->hashPassword($user, '123456'));
+                ->setPassword(
+                    $this->userPasswordHasher->hashPassword($user, '123456')
+                );
+            $manager->persist($user);
         }
+        $manager->flush();
     }
 
     public function addCategories(ObjectManager $manager)
