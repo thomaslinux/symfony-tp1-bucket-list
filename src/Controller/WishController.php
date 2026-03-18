@@ -41,6 +41,7 @@ final class WishController extends AbstractController
     }
 
     #[Route("/create", 'create', methods: ['POST', 'GET'])]
+    #[Route("/add", 'add', methods: ['POST', 'GET'])]
     public function create(EntityManagerInterface $entityManager, Request $request): Response
     {
         $wish = new Wish();
