@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Services\EventService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -9,14 +10,12 @@ use Symfony\Component\Routing\Attribute\Route;
 final class EventController extends AbstractController
 {
     #[Route('/events', name: 'event_list')]
-    public function list(): Response
+    public function list(EventService $eventService): Response
     {
 
-        $json = file_get_contents("https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-openagenda&refine.firstdate_begin=2026-03-01");
-        $data = json_decode($json, true);
-
+        $events = $eventService->getDataFromAPI();
         return $this->render('event/list.html.twig', [
-            'events' => $data['records']
+            'events' => $events
         ]);
     }
 }
