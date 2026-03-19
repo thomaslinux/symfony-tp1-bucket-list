@@ -11,7 +11,7 @@ class EventService
 
     public function __construct(private HttpClientInterface $httpClient)
     {
-        $this->BASE_URL = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-openagenda&refine.firstdate_begin=2026-03-01";
+        $this->BASE_URL = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-openagenda";
     }
 
     public function getDataFromAPI(EventSearch $eventSearch)
