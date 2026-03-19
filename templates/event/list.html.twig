@@ -6,7 +6,7 @@
 
 {% block body %}
     <h2>Events</h2>
-    
+
     {{ form_start(eventForm) }}
     {{ form_widget(eventForm) }}
     <button>Search</button>
@@ -14,8 +14,9 @@
 
     {% for event in events %}
         <article>
-
-            <div><img src="{{ event.fields.image }}" alt="{{ event.fields.title_fr }}"></div>
+            {% if event.fields.image is defined %}
+                <div><img src="{{ event.fields.image }}" alt="{{ event.fields.title_fr }}"></div>
+            {% endif %}
             <div>{{ event.fields.title_fr }}</div>
             <div>{{ event.fields.daterange_fr }}</div>
             <div>{{ event.fields.location_name }}</div>
