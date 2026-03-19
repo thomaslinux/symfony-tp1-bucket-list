@@ -6,6 +6,12 @@
 
 {% block body %}
     <h2>Events</h2>
+    
+    {{ form_start(eventForm) }}
+    {{ form_widget(eventForm) }}
+    <button>Search</button>
+    {{ form_end(eventForm) }}
+
     {% for event in events %}
         <article>
 
