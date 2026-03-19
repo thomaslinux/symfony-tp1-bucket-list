@@ -7,6 +7,14 @@
 {% block body %}
     <h2>Events</h2>
     {% for event in events %}
-        <div>{{ event.fields.title_fr }}</div>
+        <article>
+
+            <div><img src="{{ event.fields.image }}" alt="{{ event.fields.title_fr }}"></div>
+            <div>{{ event.fields.title_fr }}</div>
+            <div>{{ event.fields.daterange_fr }}</div>
+            <div>{{ event.fields.location_name }}</div>
+            <div>{{ event.fields.location_address }}</div>
+            <div>{{ event.fields.description_fr }}</div>
+        </article>
     {% endfor %}
 {% endblock %}

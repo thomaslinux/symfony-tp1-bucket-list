@@ -12,7 +12,7 @@ final class EventController extends AbstractController
     public function list(): Response
     {
 
-        $json = file_get_contents("https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-openagenda");
+        $json = file_get_contents("https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-openagenda&refine.firstdate_begin=2026-03-01");
         $data = json_decode($json, true);
 
         return $this->render('event/list.html.twig', [
