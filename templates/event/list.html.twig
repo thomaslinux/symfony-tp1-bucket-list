@@ -5,5 +5,8 @@
 {% endblock %}
 
 {% block body %}
-
+    <h2>Events</h2>
+    {% for event in events %}
+        <div>{{ event.fields.title_fr }}</div>
+    {% endfor %}
 {% endblock %}
