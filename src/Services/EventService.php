@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Form\Model\EventSearch;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class EventService
@@ -13,9 +14,19 @@ class EventService
         $this->BASE_URL = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-openagenda&refine.firstdate_begin=2026-03-01";
     }
 
-    public function getDataFromAPI()
+    public function getDataFromAPI(EventSearch $eventSearch)
     {
-        $data = $this->httpClient->request('GET', $this->BASE_URL)->toArray();
+        $url = $this->BASE_URL;
+
+        if ($eventSearch->getCity()) {
+            $url .= '&refine.location_city=' . $eventSearch->getCity();
+        }
+
+        if ($eventSearch->getStartDate()) {
+            $url .= '&refine.firstdate_begin=' . $eventSearch->getStartDate()->format('Y-m-d');
+        }
+
+        $data = $this->httpClient->request('GET', $url)->toArray();
 
         return $data['records'];
     }

@@ -5,25 +5,25 @@ namespace App\Form\Model;
 class EventSearch
 {
     // TODO ajouter la validation des champs
-    private string $city;
-    private \DateTime $startDate;
+    private ?string $city = null;
+    private ?\DateTime $startDate = null;
 
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->city;
     }
 
-    public function setCity(string $city): void
+    public function setCity(?string $city): void
     {
         $this->city = $city;
     }
 
-    public function getStartDate(): \DateTime
+    public function getStartDate(): ?\DateTime
     {
         return $this->startDate;
     }
 
-    public function setStartDate(\DateTime $startDate): void
+    public function setStartDate(?\DateTime $startDate): void
     {
         $this->startDate = $startDate;
     }

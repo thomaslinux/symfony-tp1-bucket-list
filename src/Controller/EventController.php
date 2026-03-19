@@ -22,7 +22,7 @@ final class EventController extends AbstractController
 
         dump($eventSearch);
 
-        $events = $eventService->getDataFromAPI();
+        $events = $eventService->getDataFromAPI($eventSearch);
 
         return $this->render('event/list.html.twig', [
             'events' => $events,
