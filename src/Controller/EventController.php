@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\EventSearchType;
+use App\Form\Model\EventSearch;
 use App\Services\EventService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +15,11 @@ final class EventController extends AbstractController
     public function list(EventService $eventService): Response
     {
 
+        $eventSearch = new EventSearch();
+        $eventForm = $this->createForm(EventSearchType::class, $eventSearch);
+
         $events = $eventService->getDataFromAPI();
+        
         return $this->render('event/list.html.twig', [
             'events' => $events
         ]);
