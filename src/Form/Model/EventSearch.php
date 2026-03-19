@@ -4,6 +4,7 @@ namespace App\Form\Model;
 
 class EventSearch
 {
+    // TODO ajouter la validation des champs
     private string $city;
     private \DateTime $startDate;
 
@@ -26,5 +27,5 @@ class EventSearch
     {
         $this->startDate = $startDate;
     }
-    
+
 }
