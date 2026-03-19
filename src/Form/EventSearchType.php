@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Form\Model\EventSearch;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,7 @@ class EventSearchType extends AbstractType
     {
         $builder
             ->add('city')
-            ->add('startDate');
+            ->add('startDate', DateType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
