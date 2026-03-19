@@ -13,14 +13,14 @@ class EventSearchType extends AbstractType
     {
         $builder
             ->add('city')
-            ->add('startDate')
-        ;
+            ->add('startDate');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => EventSearch::class,
+            'required' => false
         ]);
     }
 }
