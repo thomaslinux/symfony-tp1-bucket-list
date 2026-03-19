@@ -19,9 +19,10 @@ final class EventController extends AbstractController
         $eventForm = $this->createForm(EventSearchType::class, $eventSearch);
 
         $events = $eventService->getDataFromAPI();
-        
+
         return $this->render('event/list.html.twig', [
-            'events' => $events
+            'events' => $events,
+            'eventForm' => $eventForm
         ]);
     }
 }
