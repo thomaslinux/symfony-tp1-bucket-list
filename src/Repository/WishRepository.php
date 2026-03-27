@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Wish;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<Wish>
@@ -45,6 +44,39 @@ class WishRepository extends ServiceEntityRepository
             ->setParameter('ispublished', true)
             ->addOrderBy('w.dateCreated', 'DESC');
 
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+    public function findWishesBySearch($wishSearch)
+    {
+        $wishTitle = $wishSearch->getTitle();
+        $wishDateCreated = $wishSearch->getDateCreated();
+        $wishCategory = $wishSearch->getCategory();
+        $qb = $this->createQueryBuilder('w');
+        $qb
+            ->join('w.category', 'c')
+            ->addSelect('c')
+            ->andWhere('w.isPublished = :ispublished')
+            ->setParameter('ispublished', true);
+        if ($wishTitle) {
+            $qb
+                ->andWhere($qb->expr()->like('w.title', ':wishTitle'))
+                ->setParameter('wishTitle', '%' . $wishTitle . '%');
+        }
+        if ($wishDateCreated) {
+            $qb
+                ->andWhere('w.dateCreated < :wDatecreated')
+                ->setParameter('wDatecreated', $wishDateCreated);
+        }
+        if ($wishCategory) {
+            $qb
+                ->andWhere('w.category = :category')
+                ->setParameter('category', $wishCategory);
+
+        }
+        $qb
+            ->addOrderBy('w.dateCreated', 'DESC');
         $query = $qb->getQuery();
         return $query->getResult();
     }

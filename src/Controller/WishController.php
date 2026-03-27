@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Wish;
+use App\Form\Model\WishSearch;
+use App\Form\WishSearchType;
 use App\Form\WishType;
 use App\Repository\CategoryRepository;
 use App\Repository\WishRepository;
@@ -21,13 +23,20 @@ final class WishController extends AbstractController
     #[Route('', name: 'list')]
     #[Route('/category/{id}', name: 'list_by_category', requirements: ['id' => '\d+'])]
     public function list(
-        WishRepository $wishRepository
+        WishRepository $wishRepository,
+        Request        $request
     ): Response
     {
-        $wishes = $wishRepository->findWishesWithCategory();
+
+        $wishSearch = new WishSearch();
+        $wishForm = $this->createForm(WishSearchType::class, $wishSearch);
+        $wishForm->handleRequest($request);
+
+        $wishes = $wishRepository->findWishesBySearch($wishSearch);
 
         return $this->render('wish/list.html.twig', [
-            'wishes' => $wishes
+            'wishes' => $wishes,
+            'wishForm' => $wishForm
         ]);
     }
 

@@ -4,11 +4,17 @@
 
     <h1>Bienvenue sur le site BucketList</h1>
     <h2>liste de trucs à faire</h2>
+
+    {{ form_start(wishForm) }}
+    {{ form_widget(wishForm) }}
+    <button>Search</button>
+    {{ form_end(wishForm) }}
+
     <section>
         {% for wish in wishes %}
             <a href="{{ path('wish_detail', {'id': wish.id }) }}">
                 <article>
-                    {{ wish.title }} - {{ wish.category.name }}
+                    {{ wish.title }} - {{ wish.category.name }} - {{ wish.dateCreated | date ('d/m/Y H:i') }}
                 </article>
             </a>
         {% else %}

@@ -13,7 +13,10 @@ use Symfony\Component\Routing\Attribute\Route;
 final class EventController extends AbstractController
 {
     #[Route('/events', name: 'event_list')]
-    public function list(EventService $eventService, Request $request): Response
+    public function list(
+        EventService $eventService,
+        Request      $request
+    ): Response
     {
 
         $eventSearch = new EventSearch();

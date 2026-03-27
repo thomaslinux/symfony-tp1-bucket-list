@@ -2,11 +2,24 @@
 
 namespace App\Form\Model;
 
+use App\Entity\Category;
+
 class WishSearch
 {
     // TODO ajouter la validation des champs
     private ?string $title = null;
     private ?\DateTime $dateCreated = null;
+    private ?Category $category = null;
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): void
+    {
+        $this->category = $category;
+    }
 
     public function getTitle(): ?string
     {
