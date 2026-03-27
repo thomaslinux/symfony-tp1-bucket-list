@@ -21,22 +21,13 @@ final class WishController extends AbstractController
     #[Route('', name: 'list')]
     #[Route('/category/{id}', name: 'list_by_category', requirements: ['id' => '\d+'])]
     public function list(
-        WishRepository     $wishRepository,
-        CategoryRepository $categoryRepository,
-        int                $id = null
+        WishRepository $wishRepository
     ): Response
     {
-        if ($id) {
-            $wishes = $wishRepository->findWishesByCategory($id);
-        } else {
-            $wishes = $wishRepository->findWishesWithCategory();
-        }
-
-        $categories = $categoryRepository->findAll();
+        $wishes = $wishRepository->findWishesWithCategory();
 
         return $this->render('wish/list.html.twig', [
-            'wishes' => $wishes,
-            'categories' => $categories
+            'wishes' => $wishes
         ]);
     }
 

@@ -4,10 +4,7 @@
 
     <h1>Bienvenue sur le site BucketList</h1>
     <h2>liste de trucs à faire</h2>
-
-    {% include 'views/nav/category-select.html.twig' %}
     <section>
-
         {% for wish in wishes %}
             <a href="{{ path('wish_detail', {'id': wish.id }) }}">
                 <article>
